@@ -2,9 +2,8 @@
   "name": "nestjs-fundamentos",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Kevin for Platzi",
   "private": true,
-  "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

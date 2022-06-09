@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Delete, Param, Query, Body } from '@nestjs/common';
+import { Controller, Post, Get, Put, Delete, Param, Query, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -12,6 +12,7 @@ export class AppController {
   ******************** */
 
   @Get('products')
+  @HttpCode(HttpStatus.OK)
   getProducts(@Query('limit') limit = 10, @Query('offset') offset = 0): string {
     return `Lista de productos limit=${limit} offset=${offset}`;
   }
@@ -21,6 +22,7 @@ export class AppController {
     return `Producto id: ${params.idProduct}`;
   } */
   @Get('product/:idProduct')
+  @HttpCode(HttpStatus.OK)
   getProduct2(@Param('idProduct') idProduct: string): string {
     return `Producto id: ${idProduct}`;
   }
@@ -43,6 +45,7 @@ export class AppController {
   ******************** */
 
   @Post('product')
+  @HttpCode(HttpStatus.CREATED)
   createProducto(@Body() body: any): any {
     return {
       name: body.name,
@@ -56,6 +59,7 @@ export class AppController {
   ******************** */
 
   @Put('product/:idProduct')
+  @HttpCode(HttpStatus.OK)
   updateProducto(@Param('idProduct') idProduct: string, @Body() body: any): any {
     return {
       idProduct: idProduct,
@@ -70,6 +74,7 @@ export class AppController {
   ******************** */
 
   @Delete('product')
+  @HttpCode(HttpStatus.OK)
   deleteProducto(@Param('idProduct') idProduct: string): any {
     return {
       idProduct: idProduct,

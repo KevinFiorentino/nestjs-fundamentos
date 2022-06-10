@@ -1,5 +1,7 @@
 import { Controller, Post, Get, Put, Delete, Param, Query, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ParseIntPipe } from './pipes/parse-int.pipe';
+import { CreateProductDTO } from './dtos/products.dto';
 
 @Controller()
 export class AppController {
@@ -23,7 +25,7 @@ export class AppController {
   } */
   @Get('product/:idProduct')
   @HttpCode(HttpStatus.OK)
-  getProduct2(@Param('idProduct') idProduct: string): string {
+  getProduct2(@Param('idProduct', ParseIntPipe) idProduct: string): string {
     return `Producto id: ${idProduct}`;
   }
 
@@ -46,11 +48,8 @@ export class AppController {
 
   @Post('product')
   @HttpCode(HttpStatus.CREATED)
-  createProducto(@Body() body: any): any {
-    return {
-      name: body.name,
-      price: body.price
-    };
+  createProducto(@Body() body: CreateProductDTO): any {
+    // ...
   }
 
 

@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,8 +8,15 @@ import { Prueba2Module } from './modules/prueba2/prueba2.module';
 
 const API_KEY = '1324567890';
 
+@Global()
 @Module({
-  imports: [PruebaModule, Prueba2Module],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env'
+    }),
+    PruebaModule,
+    Prueba2Module
+  ],
   controllers: [AppController],
   providers: [
     {

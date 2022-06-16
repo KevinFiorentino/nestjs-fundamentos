@@ -5,6 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PruebaModule } from './modules/prueba/prueba.module';
 import { Prueba2Module } from './modules/prueba2/prueba2.module';
+import { environments } from './environment';
+
+import * as Joi from 'joi';
+
+import config from './config';
 
 const API_KEY = '1324567890';
 
@@ -13,8 +18,14 @@ const API_KEY = '1324567890';
   imports: [
     HttpModule,
     ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
+      load: [config],
+      isGlobal: true,
+      validationSchema: Joi.object({
+        API_KEY: Joi.string().required(),
+        DATABASE_NAME: Joi.string().required(),
+        DATABASE_PORT: Joi.number().required(),
+      })
     }),
 
     PruebaModule,

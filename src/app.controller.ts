@@ -2,15 +2,17 @@ import { Controller, Post, Get, Put, Delete, Param, Query, Body, HttpCode, HttpS
 import { AppService } from './app.service';
 import { ParseIntPipe } from './pipes/parse-int.pipe';
 import { CreateProductDTO } from './dtos/products.dto';
+import { ConfigType } from '@nestjs/config';
+import config from './config';
 
 @Controller()
 export class AppController {
 
   constructor(
     private readonly appService: AppService,
-    @Inject('API_KEY') private apiKey: string,
+    @Inject(config.KEY) private configService: ConfigType<typeof config>,
     @Inject('DATA') private data: any[]
-    ) {}
+  ) {}
 
 
   /* ********************

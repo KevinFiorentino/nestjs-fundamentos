@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Delete, Param, Query, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, Put, Delete, Param, Query, Body, HttpCode, HttpStatus, Inject } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ParseIntPipe } from './pipes/parse-int.pipe';
 import { CreateProductDTO } from './dtos/products.dto';
@@ -6,7 +6,11 @@ import { CreateProductDTO } from './dtos/products.dto';
 @Controller()
 export class AppController {
 
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject('API_KEY') private apiKey: string,
+    @Inject('DATA') private data: any[]
+    ) {}
 
 
   /* ********************

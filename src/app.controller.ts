@@ -5,13 +5,16 @@ import { CreateProductDTO } from './dtos/products.dto';
 import { ConfigType } from '@nestjs/config';
 import config from './config';
 
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+
+@ApiTags('Productos')
 @Controller()
 export class AppController {
 
   constructor(
     private readonly appService: AppService,
-    @Inject(config.KEY) private configService: ConfigType<typeof config>,
-    @Inject('DATA') private data: any[]
+    /* @Inject(config.KEY) private configService: ConfigType<typeof config>, */
+    /* @Inject('DATA') private data: any[] */
   ) {}
 
 
@@ -19,6 +22,7 @@ export class AppController {
            GET
   ******************** */
 
+  @ApiOperation({ summary: 'Obtener lista de productos.' })
   @Get('products')
   @HttpCode(HttpStatus.OK)
   getProducts(@Query('limit') limit = 10, @Query('offset') offset = 0): string {
@@ -29,6 +33,7 @@ export class AppController {
   getProduct1(@Param() params: any): string {
     return `Producto id: ${params.idProduct}`;
   } */
+  @ApiOperation({ summary: 'Obtener producto.' })
   @Get('product/:idProduct')
   @HttpCode(HttpStatus.OK)
   getProduct2(@Param('idProduct', ParseIntPipe) idProduct: string): string {
@@ -37,7 +42,7 @@ export class AppController {
 
   /* Ejemplo Bloqueo de Endpoints */
 
-  @Get('products/:idProduct')
+  /* @Get('products/:idProduct')
   endpoint1() {
     // ...
   }
@@ -45,13 +50,14 @@ export class AppController {
   @Get('products/filter')
   endpoint2() {
     // ...
-  }
+  } */
 
 
   /* ********************
            POST
   ******************** */
 
+  @ApiOperation({ summary: 'Crear producto.' })
   @Post('product')
   @HttpCode(HttpStatus.CREATED)
   createProducto(@Body() body: CreateProductDTO): any {
@@ -63,6 +69,7 @@ export class AppController {
            PUT
   ******************** */
 
+  @ApiOperation({ summary: 'Editar producto.' })
   @Put('product/:idProduct')
   @HttpCode(HttpStatus.OK)
   updateProducto(@Param('idProduct') idProduct: string, @Body() body: any): any {
@@ -78,6 +85,7 @@ export class AppController {
           DELETE
   ******************** */
 
+  @ApiOperation({ summary: 'Eliminar producto' })
   @Delete('product')
   @HttpCode(HttpStatus.OK)
   deleteProducto(@Param('idProduct') idProduct: string): any {

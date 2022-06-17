@@ -17,7 +17,7 @@ const API_KEY = '1324567890';
 @Module({
   imports: [
     HttpModule,
-    ConfigModule.forRoot({
+    /* ConfigModule.forRoot({
       envFilePath: environments[process.env.NODE_ENV] || '.env',
       load: [config],
       isGlobal: true,
@@ -26,7 +26,7 @@ const API_KEY = '1324567890';
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
       })
-    }),
+    }), */
 
     PruebaModule,
     Prueba2Module
@@ -41,13 +41,13 @@ const API_KEY = '1324567890';
       provide: 'API_KEY',
       useValue: API_KEY
     },
-    {
+    /* {
       provide: 'DATA',
       useFactory: async (http: HttpService) => {
         return await http.get('<URL_REQUEST>').toPromise()
       },
       inject: [HttpService]
-    }
+    } */
   ],
   exports: [AppService]
 })

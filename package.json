@@ -4,6 +4,9 @@
   "description": "",
   "author": "Kevin for Platzi",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
